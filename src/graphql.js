@@ -17,23 +17,3 @@ export const TOGGLE_TODO = gql`
     updateTodo(id: $id, complete: $complete) { id complete }
   }
 `
-
-export const TODOS_SUBSCRIPTION = gql`
-  subscription {
-    Todo(filter: {
-      mutation_in: [CREATED, UPDATED, DELETED]
-    }) {
-      mutation
-      node {
-        id
-        text 
-        complete
-      }
-      previousValues {
-        id
-        text
-        complete
-      }
-    }
-  }
-`

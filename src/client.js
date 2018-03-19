@@ -1,43 +1,56 @@
-import { ApolloLink, split } from 'apollo-link';
-import { HttpLink } from 'apollo-link-http';
-import { WebSocketLink } from 'apollo-link-ws';
-import { getMainDefinition } from 'apollo-utilities';
+import { SchemaLink } from 'apollo-link-schema';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import gql from 'graphql-tag';
+import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
+// import typeDefs from './schema.graphql';
+
+const typeDefs = gql`
+type User {
+  id: ID!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type File {
+  id: ID!
+  createdAt: String!
+  updatedAt: String!
+  contentType: String!
+  name: String!
+  secret: String!
+  size: Int!
+  url: String!
+}
+
+type Todo {
+  id: ID!
+  text: String!
+  complete: Boolean!
+}
+
+type Query {
+  allTodoes: [Todo]
+}
+
+`;
+
+const mocks = {
+  Query: () => ({
+    allTodoes: () => [
+      {
+        id: '1',
+        text: 'omg',
+        complete: false
+      }
+    ]
+  })
+};
+
+const schema = makeExecutableSchema({ typeDefs });
+addMockFunctionsToSchema({ schema, mocks });
 
 export const client = new ApolloClient({
-  link: setupLink(),
+  link: new SchemaLink({ schema }),
   cache: new InMemoryCache()
 });
-
-function setupLink() {
-  const httpLink = new HttpLink({
-    uri: 'https://api.graph.cool/simple/v1/ADD_YOUR_API_KEY_HERE'
-  });
-  const authLink = new ApolloLink((operation, forward) => {
-    const token = localStorage.getItem('authtoken');
-    if (token) {
-      operation.setContext({
-        headers: { Authorization: token }
-      });
-    }
-    return forward(operation);
-  })
-  const httpSecured = authLink.concat(httpLink);
-
-  const wsLink = new WebSocketLink({
-    uri: `wss://subscriptions.graph.cool/v1/ADD_YOUR_API_KEY_HERE
-    `,
-    options: { reconnect: true }
-  });
-  const isSubscription = ({ query }) => {
-    const { kind, operation } = getMainDefinition(query);
-    return kind === 'OperationDefinition' && operation === 'subscription';
-  }
-  const link = split(
-    isSubscription,
-    /* if true use  */ wsLink,
-    /* otherwise */ httpSecured,
-  );
-  return link;
-}

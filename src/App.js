@@ -14,7 +14,7 @@ import Chip from 'material-ui/Chip';
 import FontIcon from 'material-ui/FontIcon';
 
 import ReactCardFlip from 'react-card-flip';
-import { TODOS, TODOS_SUBSCRIPTION } from './graphql';
+import { TODOS } from './graphql';
 
 import './App.css';
 
@@ -60,10 +60,6 @@ class App extends Component {
     this.setState({ currentFilter: filter });
   }
 
-  componentWillMount() {
-    this.props.subscribeToNewTodos()
-  }
-
   render() {
     return (
       <ReactCardFlip isFlipped={this.state.isFlipped}>
@@ -72,27 +68,27 @@ class App extends Component {
             Todo App powered by GraphQL and React <FontIcon className="material-icons" style={styles.icon}>info</FontIcon>
           </div>
           <AddTodo addTodo={this.props.addTodo}/>
-          {this.props.todos && this.props.todos.length > 0 && 
+          {this.props.todos && this.props.todos.length > 0 &&
           <Tabs
             value={this.state.value}
             onChange={this.handleChange}
             tabItemContainerStyle={styles.tabs}>
-            <Tab 
-              style={styles.tab} 
-              buttonStyle={styles.button} 
-              label="All" 
+            <Tab
+              style={styles.tab}
+              buttonStyle={styles.button}
+              label="All"
               value="SHOW_ALL">
             </Tab>
-            <Tab 
-              style={styles.tab} 
-              buttonStyle={styles.button} 
-              label="Active" 
+            <Tab
+              style={styles.tab}
+              buttonStyle={styles.button}
+              label="Active"
               value="SHOW_ACTIVE">
             </Tab>
-            <Tab 
-              style={styles.tab} 
-              buttonStyle={styles.button} 
-              label="Complete" 
+            <Tab
+              style={styles.tab}
+              buttonStyle={styles.button}
+              label="Complete"
               value="SHOW_COMPLETED">
             </Tab>
           </Tabs>}
@@ -134,6 +130,7 @@ const withTodos = graphql(
     props: ({ ownProps, data }) => {
       if (data.loading) return { loading: true }
       if (data.error) return { hasErrors: true }
+      console.log('data', data);
       return {
         todos: data.allTodoes,
       }
@@ -141,60 +138,4 @@ const withTodos = graphql(
   }
 )
 
-const withSubscription = graphql(TODOS,
-  {
-    props: ({ data: { subscribeToMore } }) => ({
-      subscribeToNewTodos() {
-        return subscribeToMore({
-          document: TODOS_SUBSCRIPTION,
-          updateQuery: (state, { subscriptionData }) => {
-            let todos, t;
-            const {mutation, node} = t = subscriptionData.data.Todo;
-  
-            switch(mutation) {
-              case "CREATED": 
-              case "UPDATED":
-                let exists = false;
-                // UPDATE
-                todos = state.allTodoes.map(todo => {
-                  // covers updates and new todos
-                  // created by this client
-                  if(todo.id === node.id) {
-                    exists = true;
-                    return {
-                      id: node.id,
-                      text: node.text,
-                      complete: node.complete,
-                      __typename: "Todo"
-                    }
-                  }
-                  return todo;
-                })
-                // NEWLY CREATED (other clients)
-                if (!exists) {
-                  todos.push({
-                    id: node.id,
-                    text: node.text,
-                    complete: node.complete,
-                    __typename: "Todo"
-                  });                
-                }
-                break;
-              case "DELETED": 
-                todos = state.allTodoes
-                  .filter(todo => todo.id !== t.previousValues.id);
-                break;
-              default: break;
-            }
-  
-            return {
-              allTodoes: todos
-            }
-          },
-        })
-      },
-    }),
-  },
-)
-
-export default withTodos(withSubscription(App))
+export default withTodos(App);
