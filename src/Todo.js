@@ -59,9 +59,12 @@ const withToggleTodo = graphql(TOGGLE_TODO,{
       return mutate({
         variables: { id, complete },
         update: (store, { data: { updateTodo } }) => {
+          console.log('updating with response', updateTodo);
           const data = store.readQuery({ query: TODOS });
+          console.log('all todos', data);
           data.allTodoes.map(t => {
             if (t.id === updateTodo.id) {
+              console.log('id match');
               return {
                 id: updateTodo.id,
                 text: t.text,

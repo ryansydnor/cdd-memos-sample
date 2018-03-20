@@ -3,7 +3,7 @@ import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import gql from 'graphql-tag';
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
-// import typeDefs from './schema.graphql';
+
 
 const typeDefs = gql`
 type User {
@@ -33,17 +33,31 @@ type Query {
   allTodoes: [Todo]
 }
 
+type Mutation {
+  createTodo(text: String!, complete: Boolean!): Todo
+  updateTodo(id: ID!, complete: Boolean!): Todo
+}
+
 `;
 
 const mocks = {
   Query: () => ({
     allTodoes: () => [
-      {
+      { 
         id: '1',
         text: 'omg',
         complete: false
+      },
+      {
+        id: '2',
+        text: 'two',
+        complete: false
       }
     ]
+  }),
+  Mutation: () => ({
+    createTodo: (root, { text, complete }) => ({ id: '3', text, complete }),
+    updateTodo: (root, { id, complete }) => ({ id, complete })
   })
 };
 

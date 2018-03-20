@@ -52,6 +52,9 @@ const withAddTodo = graphql(ADD_TODO, {
     addTodo (text) {
       return mutate({
         variables: { text },
+        update: (store, { data }) => {
+          console.log('added', data);
+        }
       })
     },
   }),
