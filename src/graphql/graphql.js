@@ -7,17 +7,14 @@ export const TODOS = gql`
 `
 
 export const TODO = gql`
-  query todo {
+  query todo($id: ID!) {
     todo(id: $id) {
       id
       text
-      author {
-        name
-        url
+      user {
+        id
         avatar {
           url
-          height
-          width
         }
       }
     }
@@ -28,31 +25,44 @@ export const ADD_TODO = gql`
   mutation addTodo($text: String!) {
     createTodo(text: $text, complete: false) { id text complete }
   }
-`
+`;
 
 export const TOGGLE_TODO = gql`
   mutation toggleTodo($id: ID!, $complete: Boolean!) {
     updateTodo(id: $id, complete: $complete) { id complete }
   }
-`
+`;
 
+export const USER_FRAGMENT = gql`
+  fragment UserFields on User {
+    id
+    avatar {
+      url
+    }
+  }
+`;
 
 
 export const typeDefs = gql`
   type User {
     id: ID!
-    createdAt: String!
-    updatedAt: String!
+    avatar: Avatar
+  }
+
+  type Avatar {
+    url: String!
   }
 
   type Todo {
     id: ID!
     text: String!
     complete: Boolean!
+    user: User
   }
 
   type Query {
     allTodos: [Todo]
+    todo(id: ID!): Todo
   }
 
   type Mutation {

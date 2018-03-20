@@ -8,7 +8,7 @@ import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 const mocks = {
   Query: () => ({
     allTodos: () => allTodos,
-    todo: (root, { id }) => allTodos.find((x) => x.id === id)
+    todo: (root, { id }) => allTodos.find((x) => x.id == id)
   }),
   Mutation: () => ({
     createTodo: (root, { text, complete }) => {

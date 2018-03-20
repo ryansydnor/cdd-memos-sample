@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-
 import { graphql } from 'react-apollo';
 
-import AddTodo from './AddTodo';
 import TodoList from './TodoList';
 import TodoDetails from './TodoDetails'
-import Footer from './Footer';
-
-import {Card} from 'material-ui/Card';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import CircularProgress from 'material-ui/CircularProgress';
-import FontIcon from 'material-ui/FontIcon';
 import { TODOS } from './graphql/graphql';
 
 import './App.css';
@@ -22,7 +15,6 @@ class App extends Component {
   };
 
   handleChange = (currentFilter, selectedTodo) => {
-    console.log(currentFilter, selectedTodo);
     this.setState({ currentFilter, selectedTodo });
   }
 
@@ -30,16 +22,18 @@ class App extends Component {
     const { allTodos } = this.props.data;
     const { currentFilter, selectedTodo } = this.state;
     return (
-        <Card className="card" key="front">
-          <div className="header">
-            Todo App powered by GraphQL and React <FontIcon className="material-icons">info</FontIcon>
-          </div>
-          { currentFilter === "DETAIL_VIEW" &&
-            <TodoDetails todoId={selectedTodo.id} />
-          }
-          { currentFilter !== "DETAIL_VIEW" &&
-            <div>
-            <AddTodo addTodo={this.props.addTodo}/>
+      <div>
+        <div className="header">
+          Component Driven Development with GraphQL and Apollo
+        </div>
+        { currentFilter === "DETAIL_VIEW" &&
+          <TodoDetails
+            onClose={ () => this.handleChange('SHOW_ALL', null) }
+            todoId={ selectedTodo.id }
+          />
+        }
+        { currentFilter !== "DETAIL_VIEW" &&
+          <div>
             <Tabs value={this.state.value} onChange={this.handleChange}>
               <Tab
                 label="All"
@@ -54,17 +48,16 @@ class App extends Component {
                 value="SHOW_COMPLETED">
               </Tab>
             </Tabs>
-            <div className="turn">
+            <div>
               <TodoList
                 todos={allTodos || []}
                 filter={currentFilter}
                 selectTodo={this.handleChange}
               />
             </div>
-            </div>
-          }
-          <Footer/>
-        </Card>
+          </div>
+        }
+      </div>
     );
   }
 }

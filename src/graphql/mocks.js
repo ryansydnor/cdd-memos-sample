@@ -1,13 +1,10 @@
 export const todo1 = {
   id: 1,
   text: 'omg 1',
-  author: {
-    name: 'dean martin',
-    url: '123',
+  user: {
+    id: 8,
     avatar: {
-      url: 'http://blah.com',
-      height: 500,
-      width: 500
+      url: 'http://blah.com'
     }
   }
 };

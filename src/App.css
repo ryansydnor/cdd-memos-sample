@@ -4,14 +4,6 @@ body {
   padding: 0;
   font-family: "Helvetica Neue",sans-serif;
 }
-.card {
-  padding: 20px;
-  margin: 20px auto 20px;
-  width: 70%;
-}
-.turn {
-  transition: opacity 200ms;
-}
 .header {
   font-size: 2em;
   font-weight: bold;
@@ -19,23 +11,14 @@ body {
   padding: 10px;
   cursor: pointer;
 }
-.add-todo {
-  padding: 15px;
-}
 .container {
   cursor: pointer;
-  padding: 5px 0px 5px 0px;
+  padding: 5px;
 }
 .list {
   overflow-y: auto;
   overflow-x: hidden;
   margin-top: 5px;
-}
-.footer {
-  display: block;
-  margin-top: 20px;
-  padding: 10px;
-  border-radius: 4px;
 }
 .subtitle {
   margin: 20px;
@@ -59,34 +42,4 @@ body {
   height: 50px;
   margin-top: 10px;
   margin-left: 5px;
-}
-.logos {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.empty {
-  height: 230px;
-}
-
-@media (max-width: 768px) {
-  .card {
-    padding: 0px;
-    margin: 0px auto 0px;
-    width: 100%;
-    padding-bottom: 20px;
-  }
-  .header {
-    margin: 0px 0px 20px 0px;
-    padding: 10px;
-  }
-  .add-todo, .chips, .logos {
-    padding: 15px;
-  }
-  .list {
-    margin-bottom: 50px;
-  }
-  .footer {
-    margin: 10px 10px 0px 10px;
-  }
 }
