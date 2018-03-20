@@ -2,7 +2,6 @@
 
 body {
   margin: 0px;
-  background-color: #e91e63;
   font-family: "Helvetica Neue",sans-serif;
 }
 .card {
@@ -27,9 +26,6 @@ body {
   cursor: pointer;
   padding: 5px 0px 5px 0px;
 }
-.container:hover {
-  background-color: #fce4ec;
-}
 .list {
   height: 200px;
   overflow-y: auto;
@@ -41,7 +37,6 @@ body {
   margin-top: 20px;
   padding: 10px;
   border-radius: 4px;
-  background-color: #fce4ec;
 }
 .subtitle {
   margin: 20px;

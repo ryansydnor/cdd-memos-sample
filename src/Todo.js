@@ -3,19 +3,6 @@ import Checkbox from 'material-ui/Checkbox';
 import { graphql } from 'react-apollo';
 import { TODOS, TOGGLE_TODO } from './graphql';
 
-const styles = {
-  checkbox: {
-    margin: 15,
-    fontSize: 20,
-  },
-  icon: {
-    fill: '#ff4081',
-  },
-  icon2: {
-    fill: 'rgba(0, 0, 0, 0.54)',
-  }
-};
-
 class Todo extends React.Component {
 
   state = {
@@ -45,8 +32,6 @@ class Todo extends React.Component {
         <Checkbox
           label={this.props.todo.text}
           checked={this.state.complete}
-          style={styles.checkbox}
-          iconStyle={this.state.complete?styles.icon:styles.icon2}
         />
       </div>
     )
