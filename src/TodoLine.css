@@ -1,0 +1,14 @@
+.TodoLine {
+  display: flex;
+  flex: 3;
+}
+
+.TodoLine__checkbox {
+  flex: 2;
+  padding: 10px;
+}
+
+.TodoLine__details {
+  flex: 1;
+  text-align: right;
+}

@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import { ApolloProvider } from 'react-apollo';
-import { client } from './client';
+import { client } from './graphql/client';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
@@ -12,6 +11,6 @@ ReactDOM.render(
     <MuiThemeProvider>
       <App client={client}/>
     </MuiThemeProvider>
-  </ApolloProvider>, 
+  </ApolloProvider>,
   document.getElementById('root')
 );

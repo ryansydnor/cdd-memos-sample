@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import { graphql } from 'react-apollo';
-import { ADD_TODO } from './graphql';
+import { TODOS, ADD_TODO } from './graphql/graphql';
 
 class AddTodo extends React.Component {
   state = {
@@ -41,8 +41,10 @@ const withAddTodo = graphql(ADD_TODO, {
     addTodo (text) {
       return mutate({
         variables: { text },
-        update: (store, { data }) => {
-          console.log('added', data);
+        update: (store, { data: { createTodo } }) => {
+          const data = store.readQuery({ query: TODOS });
+          data.allTodos.push(createTodo);
+          store.writeQuery({ query: TODOS, data });
         }
       })
     },
