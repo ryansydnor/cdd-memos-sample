@@ -21,7 +21,7 @@ class App extends Component {
     const { allTodos = [] } = this.props.data;
     const { selectedTodo } = this.state;
     return (
-      <div>
+      <div style={{width:'768px', margin:'0 auto'}}>
         <AppBar
           title="Component Driven Development with GraphQL and Apollo"
           iconElementLeft={ selectedTodo ? <IconButton><ChevronLeft /></IconButton> : <div/> }
