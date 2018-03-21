@@ -9,18 +9,6 @@ const mocks = {
   Query: () => ({
     allTodos: () => allTodos,
     todo: (root, { id }) => allTodos.find((x) => x.id == id)
-  }),
-  Mutation: () => ({
-    createTodo: (root, { text, complete }) => {
-      const newTodo = {
-        id: allTodos.length + 1,
-        text,
-        complete
-      };
-      allTodos.push(newTodo);
-      return newTodo;
-    },
-    updateTodo: (root, { id, complete }) => ({ id, complete })
   })
 };
 

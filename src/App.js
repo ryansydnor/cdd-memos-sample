@@ -11,24 +11,25 @@ import { TODOS } from './graphql/graphql';
 
 class App extends Component {
 
-  state = { selectedTodo: { id: '1' } };
+  state = { selectedTodoId: null };
 
-  updateView = (selectedTodo) => {
-    this.setState({ selectedTodo });
+  updateView = (selectedTodoId) => {
+    this.setState({ selectedTodoId });
   }
 
   render() {
     const { allTodos = [] } = this.props.data;
-    const { selectedTodo } = this.state;
+    const { selectedTodoId } = this.state;
+    const todoIds = allTodos.map((x) => x.id);
     return (
       <div style={{width:'768px', margin:'0 auto'}}>
         <AppBar
           title="Component Driven Development with GraphQL and Apollo"
-          iconElementLeft={ selectedTodo ? <IconButton><ChevronLeft /></IconButton> : <div/> }
+          iconElementLeft={ selectedTodoId ? <IconButton><ChevronLeft /></IconButton> : <div/> }
           onLeftIconButtonClick={ () => this.updateView() }
         />
-        { selectedTodo && <TodoDetails todoId={ selectedTodo.id } /> }
-        { !selectedTodo && <TodoList todos={allTodos} selectTodo={this.updateView} /> }
+        { selectedTodoId && <TodoDetails id={ selectedTodoId } /> }
+        { !selectedTodoId && <TodoList todoIds={todoIds} selectTodo={this.updateView} /> }
       </div>
     );
   }

@@ -1,8 +1,0 @@
-.UserDetails {
-  display: flex;
-  align-items: center;
-}
-
-.UserDetails__name {
-  padding-left: 6px;
-}
