@@ -1,62 +1,34 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
 import TodoList from './TodoList';
 import TodoDetails from './TodoDetails'
-import {Tabs, Tab} from 'material-ui/Tabs';
+
 import { TODOS } from './graphql/graphql';
 
-import './App.css';
 
 class App extends Component {
 
-  state = {
-    currentFilter: 'SHOW_ALL'
-  };
+  state = { selectedTodo: { id: '1' } };
 
-  handleChange = (currentFilter, selectedTodo) => {
-    this.setState({ currentFilter, selectedTodo });
+  updateView = (selectedTodo) => {
+    this.setState({ selectedTodo });
   }
 
   render() {
-    const { allTodos } = this.props.data;
-    const { currentFilter, selectedTodo } = this.state;
+    const { allTodos = [] } = this.props.data;
+    const { selectedTodo } = this.state;
     return (
       <div>
-        <div className="header">
-          Component Driven Development with GraphQL and Apollo
-        </div>
-        { currentFilter === "DETAIL_VIEW" &&
-          <TodoDetails
-            onClose={ () => this.handleChange('SHOW_ALL', null) }
-            todoId={ selectedTodo.id }
-          />
-        }
-        { currentFilter !== "DETAIL_VIEW" &&
-          <div>
-            <Tabs value={this.state.value} onChange={this.handleChange}>
-              <Tab
-                label="All"
-                value="SHOW_ALL">
-              </Tab>
-              <Tab
-                label="Active"
-                value="SHOW_ACTIVE">
-              </Tab>
-              <Tab
-                label="Complete"
-                value="SHOW_COMPLETED">
-              </Tab>
-            </Tabs>
-            <div>
-              <TodoList
-                todos={allTodos || []}
-                filter={currentFilter}
-                selectTodo={this.handleChange}
-              />
-            </div>
-          </div>
-        }
+        <AppBar
+          title="Component Driven Development with GraphQL and Apollo"
+          iconElementLeft={ selectedTodo ? <IconButton><ChevronLeft /></IconButton> : <div/> }
+          onLeftIconButtonClick={ () => this.updateView() }
+        />
+        { selectedTodo && <TodoDetails todoId={ selectedTodo.id } /> }
+        { !selectedTodo && <TodoList todos={allTodos} selectTodo={this.updateView} /> }
       </div>
     );
   }

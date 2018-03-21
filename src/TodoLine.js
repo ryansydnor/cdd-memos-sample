@@ -2,7 +2,7 @@ import React from 'react'
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import { graphql } from 'react-apollo';
-import { TODOS, TOGGLE_TODO } from './graphql/graphql';
+import { TOGGLE_TODO } from './graphql/graphql';
 import './TodoLine.css';
 
 class TodoLine extends React.Component {
@@ -11,10 +11,13 @@ class TodoLine extends React.Component {
     const { id, complete, text } = todo;
     return (
       <div className="TodoLine">
-        <div className="TodoLine__checkbox" onClick={ () => toggleTodo(id, !complete) }>
+        {/*<div className="TodoLine__checkbox" onClick={ () => toggleTodo(id, !complete) }>
           <Checkbox label={text} checked={complete} />
+        </div>*/}
+        <div className="TodoLine__checkbox">
+          { text }
         </div>
-        <div className="TodoLine__details" onClick={ () => selectTodo("DETAIL_VIEW", todo) }>
+        <div className="TodoLine__details" onClick={ () => selectTodo(todo) }>
           <FlatButton primary label="Details" />
         </div>
       </div>
