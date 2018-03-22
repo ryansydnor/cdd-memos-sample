@@ -8,7 +8,7 @@ import Typography from 'material-ui/Typography';
 
 import MemoListContainer from './MemoListContainer';
 import MemoDetailsContainer from './MemoDetailsContainer';
-import UserContainer from './UserContainer';
+import LoggedInUserContainer from './LoggedInUserContainer';
 
 
 class App extends Component {
@@ -23,19 +23,19 @@ class App extends Component {
     const { selectedMemoId } = this.state;
 
     return (
-      <div style={{width:'768px', margin:'0 auto'}}>
+      <div style={{width:'960px', margin:'0 auto'}}>
         <AppBar position="static" color="primary">
-          <Toolbar>
+          <Toolbar style={{display:'flex'}}>
             {selectedMemoId &&
               <IconButton color="secondary" onClick={() => this.updateView()}>
                 <ChevronLeft />
               </IconButton> 
             }
-            <Typography variant="title" color="secondary">
+            <Typography variant="headline" color="secondary" style={{flex:1}}>
               Component Driven Development with GraphQL and Apollo
             </Typography>
-            <div style={{float:'right', color:'white'}}>
-              <UserContainer />
+            <div>
+              <LoggedInUserContainer />
             </div>
           </Toolbar>
         </AppBar>
