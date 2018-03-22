@@ -18,7 +18,7 @@ const users = {
 }
 
 
-export const allTodos = [
+export const allMemos = [
   {
     id: 1,
     text: 'Doug\'s background',

@@ -6,27 +6,27 @@ import Card, {CardContent} from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton';
 import ChevronLeft from 'material-ui-icons/ChevronLeft';
 import Typography from 'material-ui/Typography';
-import TodoList from './/TodoList';
-import TodoDetails from './TodoDetails';
+import MemoList from './MemoList';
+import MemoDetails from './MemoDetails';
 import gql from 'graphql-tag';
 
 
 class App extends Component {
 
-  state = { selectedTodo: null };
+  state = { selectedMemo: null };
 
-  updateView = (selectedTodo) => {
-    this.setState({ selectedTodo });
+  updateView = (selectedMemo) => {
+    this.setState({ selectedMemo });
   }
 
   render() {
-    const { allTodos = [] } = this.props.data;
-    const { selectedTodo } = this.state;
+    const { allMemos = [] } = this.props.data;
+    const { selectedMemo } = this.state;
     return (
       <div style={{width:'768px', margin:'0 auto'}}>
         <AppBar position="static" color="primary">
           <Toolbar>
-            {selectedTodo &&
+            {selectedMemo &&
               <IconButton color="secondary" onClick={() => this.updateView()}>
                 <ChevronLeft />
               </IconButton> 
@@ -38,8 +38,8 @@ class App extends Component {
         </AppBar>
         <Card>
           <CardContent>
-          { selectedTodo && <TodoDetails todo={selectedTodo} /> }
-          { !selectedTodo && <TodoList todos={allTodos} selectTodo={this.updateView} /> }
+          { selectedMemo && <MemoDetails memo={selectedMemo} /> }
+          { !selectedMemo && <MemoList memos={allMemos} selectMemo={this.updateView} /> }
           </CardContent>
         </Card>
       </div>
@@ -48,8 +48,8 @@ class App extends Component {
 }
 
 export default graphql(gql`
-  query todos {
-    allTodos { 
+  query memos {
+    allMemos { 
       id
       text
       body

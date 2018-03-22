@@ -18,8 +18,8 @@ export const USER_FRAGMENT = gql`
   ${AVATAR_FRAGMENT}
 `;
 
-export const TODO_FRAGMENT = gql`
-  fragment TodoFields on Todo {
+export const MEMO_FRAGMENT = gql`
+  fragment MemoFields on Memo {
     id
     text
     user {
@@ -29,24 +29,24 @@ export const TODO_FRAGMENT = gql`
   ${USER_FRAGMENT}
 `;
 
-export const TODO = gql`
-  query todo($id: ID!) {
-    todo(id: $id) {
+export const MEMO = gql`
+  query memo($id: ID!) {
+    memo(id: $id) {
       body
-      ...TodoFields
+      ...MemoFields
     }
   }
   ${USER_FRAGMENT}
-  ${TODO_FRAGMENT}
+  ${MEMO_FRAGMENT}
 `;
 
-export const TODOS = gql`
-  query todos {
-    allTodos { 
-      ...TodoFields
+export const MEMOS = gql`
+  query memos {
+    allMemos { 
+      ...MemoFields
     }
   }
-  ${TODO_FRAGMENT}
+  ${MEMO_FRAGMENT}
 `
 
 
@@ -62,7 +62,7 @@ export const typeDefs = gql`
     url: String!
   }
 
-  type Todo {
+  type Memo {
     id: ID!
     text: String!
     body: String!
@@ -70,7 +70,7 @@ export const typeDefs = gql`
   }
 
   type Query {
-    allTodos: [Todo]
-    todo(id: ID!): Todo
+    allMemos: [Memo]
+    Memo(id: ID!): Memo
   }
 `;

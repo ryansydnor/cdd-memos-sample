@@ -3,8 +3,8 @@ import Typography from 'material-ui/Typography';
 import UserDetails from './UserDetails';
 
 
-const TodoDetails = ({ todo }) => {
-  const { text, body, user } = todo;
+const MemoDetails = ({ memo }) => {
+  const { text, body, user } = memo;
   return (
     <div>
       <Typography variant="headline" component="h2">
@@ -24,4 +24,4 @@ const TodoDetails = ({ todo }) => {
   )  
 }
 
-export default TodoDetails;
+export default MemoDetails;
