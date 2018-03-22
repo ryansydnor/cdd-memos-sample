@@ -7,7 +7,7 @@ const TodoList = ({ todos, selectTodo }) => (
   {
     todos.map((todo) =>
       <ListItem button key={todo.id} onClick={() => selectTodo(todo)}>
-        <TodoLine todo={todo} />
+        <TodoLine todoText={todo.text} />
       </ListItem>
     )
   }
