@@ -29,4 +29,4 @@ const UserDetailsContainer = ({ id, client }) => {
   )
 }
 
-export default withApollo(UserDetailsContainer)
+export default withApollo(UserDetailsContainer);

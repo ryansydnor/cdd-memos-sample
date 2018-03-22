@@ -8,6 +8,7 @@ import Typography from 'material-ui/Typography';
 
 import MemoListContainer from './MemoListContainer';
 import MemoDetailsContainer from './MemoDetailsContainer';
+import UserContainer from './UserContainer';
 
 
 class App extends Component {
@@ -33,6 +34,9 @@ class App extends Component {
             <Typography variant="title" color="secondary">
               Component Driven Development with GraphQL and Apollo
             </Typography>
+            <div style={{float:'right', color:'white'}}>
+              <UserContainer />
+            </div>
           </Toolbar>
         </AppBar>
         <Card>

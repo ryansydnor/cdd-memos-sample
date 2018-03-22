@@ -18,6 +18,15 @@ export const USER_FRAGMENT = gql`
   ${AVATAR_FRAGMENT}
 `;
 
+export const LOGGED_IN_USER = gql`
+  query loggedInUser {
+    loggedInUser {
+      ...UserFields
+    }
+  }
+  ${USER_FRAGMENT}
+`;
+
 export const MEMO_FRAGMENT = gql`
   fragment MemoFields on Memo {
     id
@@ -72,5 +81,6 @@ export const typeDefs = gql`
   type Query {
     allMemos: [Memo]
     memo(id: ID!): Memo
+    loggedInUser: User
   }
 `;
