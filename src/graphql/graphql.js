@@ -22,8 +22,11 @@ export const TODO_FRAGMENT = gql`
   fragment TodoFields on Todo {
     id
     text
-    complete
+    user {
+      ...UserFields
+    }
   }
+  ${USER_FRAGMENT}
 `;
 
 export const TODO = gql`
@@ -31,9 +34,6 @@ export const TODO = gql`
     todo(id: $id) {
       body
       ...TodoFields
-      user {
-        ...UserFields
-      }
     }
   }
   ${USER_FRAGMENT}
@@ -66,7 +66,6 @@ export const typeDefs = gql`
     id: ID!
     text: String!
     body: String!
-    complete: Boolean!
     user: User
   }
 

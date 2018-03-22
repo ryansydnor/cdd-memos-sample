@@ -2,7 +2,7 @@
 
 This application intends to demonstrate a few things:
 
-- The power of design systems `[material-ui](http://www.material-ui.com/)`
+- The power of design systems (see [material-ui](http://www.material-ui.com/))
 - The power of component systems (the separation of data fetching & presentational, as outlined by [dan abramov](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0))
 - The power of domain driven design based on a GraphQL schema
 
