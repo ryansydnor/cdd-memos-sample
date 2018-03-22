@@ -5,7 +5,7 @@ import { LOGGED_IN_USER } from '../graphql/graphql';
 import UserDetailsContainer from './UserDetailsContainer';
 
 
-const LoggedInUserLayout = ({ id }) => (
+export const LoggedInUserLayout = ({ id }) => (
   <div>
     <Typography variant="title" color="secondary">
       Welcome back,
