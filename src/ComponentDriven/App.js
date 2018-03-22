@@ -6,26 +6,26 @@ import IconButton from 'material-ui/IconButton';
 import ChevronLeft from 'material-ui-icons/ChevronLeft';
 import Typography from 'material-ui/Typography';
 
-import TodoListContainer from './TodoListContainer';
-import TodoDetailsContainer from './TodoDetailsContainer';
+import MemoListContainer from './MemoListContainer';
+import MemoDetailsContainer from './MemoDetailsContainer';
 
 
 class App extends Component {
 
-  state = { selectedTodoId: null };
+  state = { selectedMemoId: null };
 
-  updateView = (selectedTodoId) => {
-    this.setState({ selectedTodoId });
+  updateView = (selectedMemoId) => {
+    this.setState({ selectedMemoId });
   }
 
   render() {
-    const { selectedTodoId } = this.state;
+    const { selectedMemoId } = this.state;
 
     return (
       <div style={{width:'768px', margin:'0 auto'}}>
         <AppBar position="static" color="primary">
           <Toolbar>
-            {selectedTodoId &&
+            {selectedMemoId &&
               <IconButton color="secondary" onClick={() => this.updateView()}>
                 <ChevronLeft />
               </IconButton> 
@@ -37,8 +37,8 @@ class App extends Component {
         </AppBar>
         <Card>
           <CardContent>
-          { selectedTodoId && <TodoDetailsContainer id={ selectedTodoId } /> }
-          { !selectedTodoId && <TodoListContainer selectTodo={this.updateView} /> }
+          { selectedMemoId && <MemoDetailsContainer id={ selectedMemoId } /> }
+          { !selectedMemoId && <MemoListContainer selectMemo={this.updateView} /> }
           </CardContent>
         </Card>
       </div>

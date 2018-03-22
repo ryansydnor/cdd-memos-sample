@@ -71,6 +71,6 @@ export const typeDefs = gql`
 
   type Query {
     allMemos: [Memo]
-    Memo(id: ID!): Memo
+    memo(id: ID!): Memo
   }
 `;

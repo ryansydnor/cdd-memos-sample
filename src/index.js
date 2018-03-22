@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './Traditional/App';
+import TraditionalApp from './Traditional/App';
+import ComponentDrivenApp from './ComponentDriven/App';
 import { ApolloProvider } from 'react-apollo';
 import { client } from './graphql/client';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
@@ -19,7 +20,8 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <MuiThemeProvider theme={createMuiTheme(theme)}>
-      <App />
+      {/* <TraditionalApp /> */}
+      { <ComponentDrivenApp /> }
     </MuiThemeProvider>
   </ApolloProvider>,
   document.getElementById('root')
